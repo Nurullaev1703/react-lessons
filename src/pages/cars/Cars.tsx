@@ -13,7 +13,7 @@ export const Cars: FC<CarsQuerySearch> = function Cars(props) {
     item.price <= (props.maxPrice ?? item.price)) &&
     (item.year >= (props.minYear ?? item.year) &&
     item.year <= (props.maxYear ?? item.year)) &&
-    (item.color.toLowerCase() == (props.color ?? item.color))
+    (item.color.toLowerCase() == (props.color ?? item.color.toLowerCase()))
   ).map((item) =>
     <li key={item.uuid}>
       <Card>
