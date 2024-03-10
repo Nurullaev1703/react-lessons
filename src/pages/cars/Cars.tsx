@@ -32,5 +32,5 @@ export const Cars: FC<CarsQuerySearch> = function Cars(props) {
       </Card>
     </li>
   )
-  return <ul>{list}</ul>
+  return <ul>{list.length ? list : <Typography>{"Машины не найдены"}</Typography>}</ul>
 };
