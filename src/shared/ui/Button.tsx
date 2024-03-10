@@ -1,4 +1,5 @@
 import {ButtonHTMLAttributes, FC} from "react"
+import { COLORS_BACKGROUND, COLORS_BORDER, COLORS_TEXT } from "./colors"
 
 type ButtonType = "default" | "border" | "dark"
 
@@ -9,17 +10,20 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement>{
 export const Button:FC<Props> = function Button(props){
     const {mode = "default", ...rest} = props
     
-    let bgButton = "bg-blue-400"
-    let textColor = "text-white"
+    let bgButton = COLORS_BACKGROUND.main400
+    let textColor = COLORS_TEXT.alternative
 
     if(mode == "dark"){
-        bgButton = "bg-gray-800"
+        bgButton = COLORS_BACKGROUND.secondary400
     }
     else if(mode == "border"){
-        bgButton = "border bg-white border-gray-400"
-        textColor = "text-gray-800"
+        bgButton = `border ${COLORS_BORDER.secondary200}`
+        textColor = COLORS_TEXT.secondary400
     }
-
+    if(props.disabled){
+        bgButton = COLORS_BACKGROUND.secondary100
+        textColor = COLORS_TEXT.secondary200
+    }
     return <button 
         {...rest}
         className= {`rounded pb-2 pt-2 w-full ${bgButton} ${rest.className}`}

@@ -5,3 +5,8 @@ declare module "@tanstack/react-router" {
         router:typeof router
     }
 }
+declare module "@tanstack/react-router" {
+    interface StaticDataRouteOption{
+        title?:string
+    }
+}

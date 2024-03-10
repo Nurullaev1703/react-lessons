@@ -1,26 +1,35 @@
-import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import { Link, Outlet, createRootRoute, useMatches } from "@tanstack/react-router";
 import {TanStackRouterDevtools} from "@tanstack/router-devtools"
+import { Fragment } from "react";
+import { Header } from "../components/Header";
+import { Typography } from "../shared/ui/Typography";
+import { COLORS_TEXT } from "../shared/ui/colors";
 export const Route = createRootRoute({
-    component: () => (
-        <>
-            <div className="p-2 flex gap-2">
-                <Link to="/" className = "[&.active]:font-bold">
-                    {"Главная"}
-                </Link>
-                <Link to="/about" className = "[&.active]:font-bold">
-                    {"Вторая"}
-                </Link>
-                <Link to="/products/" className = "[&.active]:font-bold">
-                    {"Товары"}
-                </Link>
-                <Link to="/cars/" className = "[&.active]:font-bold">
-                    {"Машины"}
-                </Link>
-            </div>
-            <div className="p-2">
-                <Outlet />
-            </div>
-            <TanStackRouterDevtools />
-        </>
-    )
+    
+    component: () => {
+        const matches = useMatches()
+        const title = matches[matches.length - 1].staticData.title
+
+        return (
+            <>
+            <Fragment>
+                {!!title && (
+                    <Header>
+                        <Typography
+                        size={24}
+                        color={COLORS_TEXT.alternative}
+                        align={"center"}
+                        >
+                            {title ?? ""}
+                        </Typography>
+                    </Header>
+                )}
+            </Fragment>
+                <div className="p-2">
+                    <Outlet />
+                </div>
+                <TanStackRouterDevtools />
+            </>
+        )
+    }
 })
