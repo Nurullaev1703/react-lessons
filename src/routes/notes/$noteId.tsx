@@ -9,5 +9,6 @@ export const Route = createFileRoute("/notes/$noteId")({
     }
 })
 function NoteOneRoute(){
-    return <NoteOne />
+    const {noteId} = Route.useParams()
+    return <NoteOne uuid={noteId}/>
 }

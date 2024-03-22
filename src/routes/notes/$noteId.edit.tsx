@@ -9,5 +9,6 @@ export const Route = createFileRoute("/notes/$noteId/edit")({
     }
 })
 function NoteFormRoute(){
-    return <NoteForm />
+    const {noteId} = Route.useParams()
+    return <NoteForm noteId = {noteId} />
 }

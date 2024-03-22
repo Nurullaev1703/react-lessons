@@ -2,9 +2,12 @@ import { TextField } from '@mui/material';
 import  { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from '../../shared/ui/Button';
+import { notesData } from './data/notes';
+import { NoteModel } from './model/Note';
+import { useNavigate } from '@tanstack/react-router';
 
 interface Props {
-
+  noteId?: string;
 }
 
 type Form = {
@@ -12,19 +15,22 @@ type Form = {
   description:string
 }
 
-export const NoteForm: FC<Props> = function NoteForm() {
-
+export const NoteForm: FC<Props> = function NoteForm(props) {
+  const navigate = useNavigate()
+  const note = notesData?.find( item => item.uuid === props.noteId)
   const {handleSubmit, control, formState: { isValid}} = useForm<Form>({
     defaultValues:{
-      title:"",
-      description:""
+      title: note?.title ?? "",
+      description: note?.description ?? ""
     }
   })
 
   return <form 
     className={`gap-6 flex flex-col pt-4`}
     onSubmit={handleSubmit((form) =>{
-      console.log(form)
+      notesData?.push(new NoteModel(form.title, form.description))
+      console.log("Данные отправлены")
+      navigate({to:"/notes"})
     })}
   >
     <Controller
